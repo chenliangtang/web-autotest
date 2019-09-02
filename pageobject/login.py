@@ -19,7 +19,7 @@ def login(username, password):
     driver = browser.driver
     driver.get(url)
     driver.maximize_window()
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(3)
     username_elem = driver.find_element_by_xpath(username_xpath)
     password_elem = driver.find_element_by_xpath(password_xpath)
     login_elem = driver.find_element_by_xpath(login_btn_xpath)

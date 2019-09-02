@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from selenium import webdriver
+from functools import wraps
+
 from utils import parse_conf
 
-from selenium import webdriver
 
 CONF_NAME = 'conf.ini'
 
 
 def singleton(cls):
     _instance = {}
-
+    @wraps(cls)
     def inner():
         if cls not in _instance:
             _instance[cls] = cls()
