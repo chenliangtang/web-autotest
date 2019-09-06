@@ -3,24 +3,20 @@
 import unittest
 from selenium.common.exceptions import NoSuchElementException
 
-from pageobject.login import login
-from pageobject.driver import Browser
-import utils
-
-config = utils.parse_conf('login.ini')
-username = config['data']['username']
-password = config['data']['password']
-welcome_login_xpath = config['xpath']['welcome_login']
+from pageobjects.login import login
+from pageobjects.components.driver import driver_method_decorator
+from utils import CONFIG
 
 
 class TestLoginPage(unittest.TestCase):
-    def test_login(self):
-        login(username, password)
-        browser = Browser()
-        driver = browser.driver
+    @driver_method_decorator
+    def test_login(self, driver):
+        username = CONFIG['common']['username']
+        password = CONFIG['common']['password']
+        welcome_login_xpath = CONFIG['login']['welcome_login_xpath']
+        login(driver, username, password)
         try:
             welcome_login_elem = driver.find_element_by_xpath(welcome_login_xpath)
         except NoSuchElementException:
             welcome_login_elem = ''
         self.assertEqual(welcome_login_elem, '')
-        browser.update(driver)
