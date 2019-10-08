@@ -64,6 +64,7 @@ def make_testcases_with_test_function(import_files_path):
                         testcases.append(testcase)
     return testcases
 
+
 def make_testcases(import_files_path):
     testcases = []
     for file_path in import_files_path:
@@ -76,6 +77,6 @@ def make_testcases(import_files_path):
 
 
 def make_unittest_testcases():
-    module_path = 'testcases'
+    module_path = 'testsuites'
     import_files_path = make_import_files(module_path)
     return make_testcases(import_files_path)

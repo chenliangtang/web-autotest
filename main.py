@@ -1,34 +1,23 @@
 # -*- coding: utf-8 -*-
 
-from testcases.test_login import TestLoginPage
-from testcases.test_logout import TestLogout
-from testcases.test_switch_subsystem import TestSwitchSubsystem
-from testcases.test_date import TestDate
-from testcases.test_task_management import TestSearchTask
-from pageobjects.components.driver import Browser
+from testsuites.task_management_testsuite import TestSearchTask
 import testrunner
 
 if __name__ == '__main__':
     tests = []
     test_runner = testrunner.TestRunner()
-    tests.append(test_runner.load_test(TestLoginPage))
-    tests.append(test_runner.load_test(TestSwitchSubsystem))
-    #tests.append(test_runner.load_test(TestDate))
     tests.append(test_runner.load_test(TestSearchTask))
-    tests.append(test_runner.load_test(TestLogout))
 
     test_runner.add_tests(tests)
     test_runner.run_tests()
-
-    Browser().close_driver()
 
 
     """
         for test_result in test_runner.test_results:
         print(test_result)
 
-        testcases = testrunner.make_unittest_testcases()
-        print(testcases)
+        testsuites = testrunner.make_unittest_testcases()
+        print(testsuites)
     
     
        suite = unittest.TestSuite()

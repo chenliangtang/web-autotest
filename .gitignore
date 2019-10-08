@@ -1,5 +1,5 @@
 .idea/*
 __pycache__/*
 pageobjects/__pycache__/*
-testcases/__pycache__/*
-pageobjects/components/__pycache__/*
+testsuites/__pycache__/*
+components/__pycache__/*
