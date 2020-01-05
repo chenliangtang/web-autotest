@@ -43,7 +43,7 @@ class Logout(object):
         assert welcome_login_elem.text == '欢迎登录'
 
 
-class Control(object):
+class Controller(object):
     def __init__(self, driver):
         self.driver = driver
         self.page_xpath = CONFIG['homepage']['nav_content_xpath']

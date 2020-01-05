@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# from pageobjects import Login, Control
+# from pageobjects import Login, Controller
 # from webdriver import driver
 
 from logger import logger
@@ -9,12 +9,12 @@ from logger import logger
 # login = Login(driver.driver)
 # login.login()
 #
-# control = Control(driver.driver)
+# controller = Controller(driver.driver)
 
 
-# control.start()
-# control.next()
-# control.next()
+# controller.start()
+# controller.next()
+# controller.next()
 
 while True:
     logger.info('dfdfsdfdsfds')
