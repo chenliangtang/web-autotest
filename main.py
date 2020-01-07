@@ -1,26 +1,21 @@
 # -*- coding: utf-8 -*-
 
-# from pageobjects import Login, Controller
-# from webdriver import driver
+import time
 
-from logger import logger
+from pageobjects import Login, Controller, Logout
+from webdriver import driver
+from logger import Logger
+
+logger = Logger().get_logger()
+
+login = Login(driver.driver)
+login.login()
+
+controller = Controller(driver.driver)
+
+controller.start()
+controller.loop_play()
 
 
-# login = Login(driver.driver)
-# login.login()
-#
-# controller = Controller(driver.driver)
-
-
-# controller.start()
-# controller.next()
-# controller.next()
-
-while True:
-    logger.info('dfdfsdfdsfds')
-    logger.info('dfdfsdfdsfds')
-    logger.info('dfdfsdfdsfds')
-    logger.info('dfdfsdfdsfds')
-    logger.info('dfdfsdfdsfds')
-    logger.info('dfdfsdfdsfds')
-    logger.info('dfdfsdfdsfds')
+logout = Logout(driver.driver)
+logout.logout()

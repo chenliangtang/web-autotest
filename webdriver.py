@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import logging
 from functools import wraps
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from parseconfig import Singleton, CONFIG
+from logger import Logger
+
+logger = Logger(__name__).get_logger()
 
 
 class Driver(metaclass=Singleton):
@@ -16,7 +18,7 @@ class Driver(metaclass=Singleton):
     def _init():
         browser_name = CONFIG['common']['browser']
         if not isinstance(browser_name, str):
-            logging.error('{} is not string!!!'.format(browser_name))
+            logger.error('{} is not string!!!'.format(browser_name))
             return
 
         if browser_name in ['ie', 'IE', 'Ie']:

@@ -9,6 +9,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import TimeoutException
 
 
 def _modify_table_xpath(table_xpath, tr_td):
@@ -38,6 +39,12 @@ def wait_for_switch_to_iframe(driver, iframe_name):
 def wait_until_element_disappear(driver, xpath):
     WebDriverWait(driver, 15, poll_frequency=0.1).until(
         EC.invisibility_of_element_located((By.XPATH, xpath))
+    )
+
+
+def wait_until_all_elements_visible(driver, xpath):
+    WebDriverWait(driver, 15, poll_frequency=0.1).until(
+        EC.visibility_of_any_elements_located((By.XPATH, xpath))
     )
 
 
@@ -115,7 +122,7 @@ def input_text(driver, elem_xpath, text):
             break
         time.sleep(0.1)
         if time.time() > end_time:
-            raise Exception('Error')
+            raise TimeoutException('找不到元素，已超时')
     WebDriverWait(driver, 5, poll_frequency=0.1).until(
         EC.text_to_be_present_in_element_value((By.XPATH, elem_xpath), text)
     )
