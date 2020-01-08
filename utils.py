@@ -24,6 +24,13 @@ def wait_for_find_element(driver: WebDriver, elem_xpath: str):
     )
 
 
+def element_exist(driver: WebDriver, elem_xpath: str):
+    try:
+        return wait_for_find_element(driver, elem_xpath)
+    except TimeoutException:
+        return False
+
+
 def wait_for_find_elements(driver: WebDriver, elems_xpath: str):
     return WebDriverWait(driver, 5, poll_frequency=0.1).until(
         EC.presence_of_all_elements_located((By.XPATH, elems_xpath))
@@ -37,20 +44,20 @@ def wait_for_switch_to_iframe(driver, iframe_name):
 
 
 def wait_until_element_disappear(driver, xpath):
-    WebDriverWait(driver, 15, poll_frequency=0.1).until(
+    WebDriverWait(driver, 5, poll_frequency=0.1).until(
         EC.invisibility_of_element_located((By.XPATH, xpath))
     )
 
 
 def wait_until_all_elements_visible(driver, xpath):
-    WebDriverWait(driver, 15, poll_frequency=0.1).until(
+    WebDriverWait(driver, 5, poll_frequency=0.1).until(
         EC.visibility_of_any_elements_located((By.XPATH, xpath))
     )
 
 
 def click_element(driver, elem_xpath):
     locator = (By.XPATH, elem_xpath)
-    WebDriverWait(driver, 15, poll_frequency=0.1).until(
+    WebDriverWait(driver, 5, poll_frequency=0.1).until(
         EC.element_to_be_clickable(locator)
     ).click()
 

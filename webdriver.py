@@ -10,7 +10,8 @@ from logger import Logger
 logger = Logger(__name__).get_logger()
 
 
-class Driver(metaclass=Singleton):
+# class Driver(metaclass=Singleton):
+class Driver(object):
     def __init__(self):
         self.driver = self._init()
 
@@ -24,7 +25,8 @@ class Driver(metaclass=Singleton):
         if browser_name in ['ie', 'IE', 'Ie']:
             return webdriver.Ie()
         elif browser_name in ['chrome', 'Chrome']:
-            path = r'C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chromedriver.exe'
+            # path = r'C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chromedriver.exe'
+            path = r'C:\Program Files (x86)\Google\Chrome\Application\\chromedriver.exe'
             return webdriver.Chrome(executable_path=path)
         elif browser_name in ['360', '360浏览器']:
             options = Options()
@@ -57,6 +59,3 @@ def driver_method_decorator(func):
         func(self, driver, *args, **kwargs)
         driver.update(driver)
     return inner_func
-
-
-driver = Driver()

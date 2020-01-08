@@ -1,21 +1,29 @@
 # -*- coding: utf-8 -*-
 
-import time
+import random
 
 from pageobjects import Login, Controller, Logout
-from webdriver import driver
+from webdriver import Driver
 from logger import Logger
 
-logger = Logger().get_logger()
+doc_list = ['多页面测试', '测试测试', 'test123']
 
-login = Login(driver.driver)
-login.login()
+while True:
+    driver = Driver().driver
+    logger = Logger().get_logger()
 
-controller = Controller(driver.driver)
+    login = Login(driver)
+    login.login()
 
-controller.start()
-controller.loop_play()
+    if random.choice([True, False]):
+        controller = Controller(driver)
+        for _ in range(30):
+            play_doc = random.choice(doc_list)
+            result = controller.choice_doc(play_doc)
+            if result is False:
+                continue
+            controller.start()
+            controller.loop_play()
 
-
-logout = Logout(driver.driver)
-logout.logout()
+    logout = Logout(driver)
+    logout.logout()
