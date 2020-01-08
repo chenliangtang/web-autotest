@@ -18,8 +18,8 @@ def _modify_table_xpath(table_xpath, tr_td):
     return table_xpath
 
 
-def wait_for_find_element(driver: WebDriver, elem_xpath: str):
-    return WebDriverWait(driver, 5, poll_frequency=0.1).until(
+def wait_for_find_element(driver: WebDriver, elem_xpath: str, timeout=5):
+    return WebDriverWait(driver, timeout, poll_frequency=0.1).until(
         EC.visibility_of_element_located((By.XPATH, elem_xpath))
     )
 

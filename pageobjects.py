@@ -101,6 +101,8 @@ class Controller(object):
         self.nav_list_ct_xpath = CONFIG['homepage']['nav_list_ct_xpath']
         self.play_title_xpath = CONFIG['homepage']['play_title_xpath']
         self.preview_xpath = CONFIG['homepage']['preview_xpath']
+        self.exit_play_xpath = CONFIG['logout']['exit_play_xpath']
+        self.start_title_xpath = CONFIG['homepage']['start_title_xpath']
 
     def choice_doc(self, doc_name):
         try:
@@ -108,8 +110,10 @@ class Controller(object):
             for element in elements:
                 if element.text.strip() == doc_name:
                     logger.debug('找到文稿：{}'.format(doc_name))
+                    print('找到文稿：{}'.format(doc_name))
                     element.click()
                     logger.debug('并成功选择了找到的文稿')
+                    print('并成功选择了找到的文稿')
                     return True
         except TimeoutException:
             logger.error('选择文稿超时失败')
@@ -181,6 +185,7 @@ class Controller(object):
 
     def loop_play(self):
         for loop_times in range(1, 4):
+            print('loop_times: {}'.format(loop_times))
             try:
                 srcs_list = []
                 while self.next_exist():
@@ -213,6 +218,21 @@ class Controller(object):
             except StaleElementReferenceException as sere:
                 msg = '过期元素引用异常:{}'.format(sere)
                 logger.error(msg)
+        if element_exist(self.driver, self.exit_play_xpath):
+            click_element(self.driver, self.exit_play_xpath)
+            logger.debug('退出播放')
+            print('退出播放')
+            try:
+                start_title_elem = wait_for_find_element(self.driver, self.start_title_xpath, 20)
+                logger.info('成功找到文稿预览元素')
+            except TimeoutException:
+                logger.error('无法找到文稿预览元素，已超时')
+                print('无法找到文稿预览元素，已超时')
+            try:
+                assert start_title_elem.text.strip() == '文稿预览'
+                logger.debug('页面已经显示文稿预览字样，退出播放成功')
+            except AssertionError:
+                logger.error('退出播放失败')
 
     def pre_exist(self):
         return element_exist(self.driver, self.pre_xpath)
