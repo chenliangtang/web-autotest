@@ -140,6 +140,8 @@ class Controller(ScreenShot):
                         logger.debug('找到文稿：{}'.format(doc_name))
                         print('找到文稿：{}'.format(doc_name))
                         element.click()
+                        # time.sleep(5)
+
                         logger.debug('并成功选择了找到的文稿')
                         print('并成功选择了找到的文稿')
                         return True
@@ -211,7 +213,8 @@ class Controller(ScreenShot):
             return False
 
     def loop_play(self):
-        for times in range(1, 5):
+        for times in range(1, 11):
+        # for times in range(1, 2):
             print('loop_times: {}'.format(times))
             try:
                 img_src_list = []
