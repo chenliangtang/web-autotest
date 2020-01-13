@@ -11,6 +11,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import TimeoutException
 
+from logger import Logger
+
+
+logger = Logger().get_logger()
+
 
 def _modify_table_xpath(table_xpath, tr_td):
     table_xpath = re.sub(r'(?<=tr\[)\d(?=\])', tr_td[0], table_xpath)
@@ -28,6 +33,9 @@ def element_exist(driver: WebDriver, elem_xpath: str):
     try:
         return wait_for_find_element(driver, elem_xpath, 15)
     except TimeoutException:
+        return False
+    except Exception as e:
+        logger.error("发生未知的异常：{}".format(e))
         return False
 
 

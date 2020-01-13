@@ -88,6 +88,9 @@ class Login(ScreenShot):
                 err_msg = '断言出错: {},当前页面下没有“文稿预览”元素 '.format(err)
                 logger.error(err_msg)
                 self.screen_shot()
+            except Exception as e:
+                logger.error("发生未知的异常：{},准备进行重试".format(e))
+
         if count >= 555:
             logger.fatal('登陆重试{}次, 退出程序！！！'.format(count))
             self.screen_shot()
@@ -115,6 +118,12 @@ class Logout(ScreenShot):
             logger.error('登出操作超时!!!')
             self.screen_shot()
             if self.driver:
+                self.driver.close()
+        except Exception as e:
+            logger.error("发生未知的异常：{}".format(e))
+            self.screen_shot()
+            if self.driver:
+                logger.info('关闭浏览器')
                 self.driver.close()
 
 
@@ -149,6 +158,9 @@ class Controller(ScreenShot):
                 logger.error('查找文稿列表超时失败')
                 self.screen_shot()
                 logger.error('查找文稿列表超时失败,将进行第 {} 次重试!'.format(times))
+            except Exception as e:
+                logger.error("发生未知的异常：{}，准备进行重试".format(e))
+                self.screen_shot()
         else:
             logger.fatal('进行了 {} 次重试，查找文稿列表依然超时失败'.format(times))
             return False
@@ -167,10 +179,12 @@ class Controller(ScreenShot):
                 err_msg = '点击播放文稿按钮出错: {},准备进行{}次重试'.format(timeout, times)
                 logger.error(err_msg)
                 self.screen_shot()
-
             except AssertionError as err:
                 err_msg = '断言出错:{},准备进行{}次重试'.format(err, times)
                 logger.error(err_msg)
+                self.screen_shot()
+            except Exception as e:
+                logger.error("发生未知的异常：{}，准备进行重试".format(e))
                 self.screen_shot()
         else:
             logger.fatal('重试了{}次还是启动播放失败'.format(times))
@@ -190,6 +204,9 @@ class Controller(ScreenShot):
                 err_msg = '在文稿播放的状态点击下一页时超时失败:{}，准备重试第{}次 '.format(timeout, times)
                 logger.error(err_msg)
                 self.screen_shot()
+            except Exception as e:
+                logger.error("发生未知的异常：{}，准备进行重试".format(e))
+                self.screen_shot()
         else:
             logger.fatal('重试点击下一页按钮{}次了依然失败!!!'.format(times))
             return False
@@ -208,13 +225,15 @@ class Controller(ScreenShot):
                 err_msg = '在文稿播放的状态点击上一页时超时失败:{}，准备重试第{}次 '.format(timeout, times)
                 logger.error(err_msg)
                 self.screen_shot()
+            except Exception as e:
+                logger.error("发生未知的异常：{}，准备进行重试".format(e))
+                self.screen_shot()
         else:
             logger.error('点击上一页按钮{}次了依然失败!!!'.format(times))
             return False
 
     def loop_play(self):
         for times in range(1, 11):
-        # for times in range(1, 2):
             print('loop_times: {}'.format(times))
             try:
                 img_src_list = []
@@ -248,6 +267,9 @@ class Controller(ScreenShot):
             except StaleElementReferenceException as sere:
                 logger.error('过期元素引用异常:{}'.format(sere))
                 self.screen_shot()
+            except Exception as e:
+                logger.error("发生未知的异常：{}，准备进行重试".format(e))
+                self.screen_shot()
         if self.exit_play_exist():
             try:
                 click_element(self.driver, self.exit_play_xpath)
@@ -264,6 +286,9 @@ class Controller(ScreenShot):
                 self.screen_shot()
             except AssertionError:
                 logger.error('断言退出播放失败')
+                self.screen_shot()
+            except Exception as e:
+                logger.error("发生未知的异常：{}，准备进行重试".format(e))
                 self.screen_shot()
 
     def pre_exist(self):
