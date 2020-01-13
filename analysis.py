@@ -7,6 +7,7 @@ log_levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 
 count = 0
 
+
 def read_file(filename, log_level='ERROR'):
     with open(filename, 'r', encoding='utf-8') as f:
         for line in f:
@@ -23,5 +24,5 @@ def walk_files(root_dir):
             read_file(file_path)
 
 
-walk_files('log')
+walk_files('logs')
 print('总共:{}条数据'.format(count))

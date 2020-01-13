@@ -61,7 +61,7 @@ class Login(ScreenShot):
 
     def login(self):
         count = 0
-        while count < 555:
+        while count < 9999:
             try:
                 self.driver.get(self.url)
                 logger.debug('打开主页，进入登录页')
@@ -89,9 +89,10 @@ class Login(ScreenShot):
                 logger.error(err_msg)
                 self.screen_shot()
             except Exception as e:
+                count += 1
                 logger.error("发生未知的异常：{},准备进行重试".format(e))
 
-        if count >= 555:
+        if count >= 9999:
             logger.fatal('登陆重试{}次, 退出程序！！！'.format(count))
             self.screen_shot()
             raise Exception('重试了 {} 次登陆都失败了，抛出异常!!!'.format(count))
@@ -270,6 +271,7 @@ class Controller(ScreenShot):
             except Exception as e:
                 logger.error("发生未知的异常：{}，准备进行重试".format(e))
                 self.screen_shot()
+
         if self.exit_play_exist():
             try:
                 click_element(self.driver, self.exit_play_xpath)

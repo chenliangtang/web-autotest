@@ -10,7 +10,7 @@ class Logger(metaclass=Singleton):
     def __init__(
             self,
             logger_name='操作日志记录',
-            filename='log/test.log',
+            filename='logs/test.logs',
             when='H',
             interval=1,
             backup_count=999
