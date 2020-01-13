@@ -9,7 +9,6 @@ from logger import Logger
 
 doc_list = ['日常接待版-稳定性测试', '社会治理平台-稳定性测试']
 
-
 driver = Driver().driver
 logger = Logger().get_logger()
 
