@@ -36,10 +36,16 @@ class ScreenShot(object):
         img_name = self._get_img_name()
         msg = self.msg if self.msg != '' else '将进行截屏操作，作为操作失败的原因的记录'
         logger.debug(msg)
-        if self.driver.save_screenshot(img_name):
-            logger.info('截图操作成功， 图片名称为：{}'.format(img_name))
-        else:
-            logger.error('截图失败!!!')
+        try:
+            succeed = self.driver.save_screenshot(img_name)
+            if succeed:
+                logger.info('截图操作成功， 图片名称为：{}'.format(img_name))
+            else:
+                logger.error('截图失败!!!')
+        except TimeoutException as timeout:
+            logger.error('截图失败，超时了: {}'.format(timeout))
+        except Exception as e:
+            logger.error('未知的异常发生导致截图失败！！！:{}'.format(e))
 
     def _get_img_name(self):
         return os.path.join(
