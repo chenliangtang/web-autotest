@@ -1,3 +1,4 @@
+# 多余的文件，稳定性没有用到
 class Singleton(type):
     _instance = {}
 

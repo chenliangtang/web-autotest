@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+# 工具类文件，封装了常用方法
 import re
 import time
 

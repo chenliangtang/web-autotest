@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+# 解析 config 配置文件用的
 import os
 import configparser
 

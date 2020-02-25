@@ -25,6 +25,7 @@ class Driver(object):
         if browser_name in ['ie', 'IE', 'Ie']:
             return webdriver.Ie()
         elif browser_name in ['chrome', 'Chrome']:
+            # path 是你本地安装 chrome 浏览器的路径，chromedriver.exe 要放在 chrome.exe 同级目录下
             path = r'C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chromedriver.exe'
             # path = r'C:\Program Files (x86)\Google\Chrome\Application\\chromedriver.exe'
             return webdriver.Chrome(executable_path=path)

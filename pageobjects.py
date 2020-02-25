@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+# 操作的类方法
 import time
 import os
 import random
