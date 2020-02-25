@@ -146,6 +146,14 @@ class Controller(ScreenShot):
         self.preview_xpath = CONFIG['homepage']['preview_xpath']
         self.exit_play_xpath = CONFIG['logout']['exit_play_xpath']
         self.start_title_xpath = CONFIG['homepage']['start_title_xpath']
+        self.change_screen_xpath = CONFIG['homepage']['change_screen_xpath']
+        self.select_screen_xpath = CONFIG['homepage']['select_screen_xpath']
+        self.select_screen_confirm_xpath = CONFIG['homepage']['select_screen_confirm_xpath']
+
+    def select_screen(self):
+        click_element(self.driver, self.change_screen_xpath, 10)
+        click_element(self.driver, self.select_screen_xpath)
+        click_element(self.driver, self.select_screen_confirm_xpath)
 
     def choice_doc(self, doc_name):
         for times in range(1, 4):
@@ -156,7 +164,7 @@ class Controller(ScreenShot):
                         logger.debug('找到文稿：{}'.format(doc_name))
                         print('找到文稿：{}'.format(doc_name))
                         element.click()
-                        # time.sleep(5)
+                        time.sleep(5)
 
                         logger.debug('并成功选择了找到的文稿')
                         print('并成功选择了找到的文稿')

@@ -25,8 +25,8 @@ class Driver(object):
         if browser_name in ['ie', 'IE', 'Ie']:
             return webdriver.Ie()
         elif browser_name in ['chrome', 'Chrome']:
-            # path = r'C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chromedriver.exe'
-            path = r'C:\Program Files (x86)\Google\Chrome\Application\\chromedriver.exe'
+            path = r'C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chromedriver.exe'
+            # path = r'C:\Program Files (x86)\Google\Chrome\Application\\chromedriver.exe'
             return webdriver.Chrome(executable_path=path)
         elif browser_name in ['360', '360浏览器']:
             options = Options()
