@@ -1,4 +1,4 @@
-# 多余的文件，稳定性没有用到
+# 实际测试时没有用到该文件
 class Singleton(type):
     _instance = {}
 

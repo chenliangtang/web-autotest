@@ -4,13 +4,12 @@ from functools import wraps
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-from parseconfig import Singleton, CONFIG
+from parseconfig import CONFIG
 from logger import Logger
 
 logger = Logger(__name__).get_logger()
 
 
-# class Driver(metaclass=Singleton):
 class Driver(object):
     def __init__(self):
         self.driver = self._init()

@@ -7,8 +7,7 @@ from datetime import datetime
 
 from selenium.common.exceptions import (
     TimeoutException,
-    StaleElementReferenceException,
-    InvalidSessionIdException
+    StaleElementReferenceException
 )
 from utils import (
     click_element,
