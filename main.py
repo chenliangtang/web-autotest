@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 # 主函数入口文件
 import random
-from datetime import datetime
-
-from pageobjects import Login, Controller, Logout
+from pageobjects import Login, Controller
 from webdriver import Driver
 from logger import Logger
 # 列表中列出测试页面，以逗号分隔，文稿名称用单引号引着
@@ -17,7 +15,7 @@ login = Login(driver)
 login.login()
 # 初始化操作控制器
 controller = Controller(driver)
-#选择显示屏
+# 选择显示屏
 controller.select_screen()
 # 死循环去播放文稿的页面
 while True:
@@ -28,6 +26,3 @@ while True:
             continue
         controller.start()
         controller.loop_play()
-
-logout = Logout(driver)
-logout.logout()
