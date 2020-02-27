@@ -7,6 +7,9 @@ from singleton import Singleton
 
 
 class Logger(metaclass=Singleton):
+    """
+    封装了用于写日志的日志库，可以打印 debug、info、error、fatal 级别的日志
+    """
     def __init__(
             self,
             logger_name='操作日志记录',

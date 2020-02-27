@@ -26,12 +26,27 @@ targets = [0.1, 0.5, 0.7, 1, 2, 3, 4, 5, 7, 10]
 
 
 class ScreenShot(object):
+    """
+    封装了用于截屏的公共类
+    """
     def __init__(self, driver, root_dir, msg=''):
+        """
+        在初始化构造函数中把 webdriver 实例、截图保存的根路径和提示信息三个参数给存下来
+
+        :param driver: webdriver 实例
+        :param root_dir: 截图保存的根路径
+        :param msg: 提示信息
+        """
         self.driver = driver
         self.root_dir = root_dir
         self.msg = msg
 
     def screen_shot(self):
+        """
+        用于截屏的具体方法
+
+        :return: 无返回值
+        """
         img_name = self._get_img_name()
         msg = self.msg if self.msg != '' else '将进行截屏操作，作为操作失败的原因的记录'
         logger.debug(msg)
@@ -54,7 +69,15 @@ class ScreenShot(object):
 
 
 class Login(ScreenShot):
+    """
+    继承用于截图的公共类 ScreenShot，并封装了用于多屏控制端登录的类
+    """
     def __init__(self, driver):
+        """
+        继承 ScreenShot 构造函数，并保存用于登录操作的数据
+
+        :param driver: webdriver 对象
+        """
         super(Login, self).__init__(driver, 'screenshots\\login')
         self.url = CONFIG['common']['url']
         self.username = CONFIG['common']['username']
@@ -65,6 +88,11 @@ class Login(ScreenShot):
         self.start_title_xpath = CONFIG['homepage']['start_title_xpath']
 
     def login(self):
+        """
+        登录多屏控制端的具体方法
+
+        :return: 无返回值
+        """
         count = 0
         while count < 9999:
             try:
@@ -104,12 +132,24 @@ class Login(ScreenShot):
 
 
 class Logout(ScreenShot):
+    """
+    继承用于截图的公共类 ScreenShot，并封装了用于多屏控制端登出的类
+    """
     def __init__(self, driver):
+        """
+        继承 ScreenShot 构造函数，并保存用于登出操作的数据
+        :param driver: webdriver 对象
+        """
         super(Logout, self).__init__(driver, 'screenshots\\logout')
         self.exit_play_xpath = CONFIG['logout']['exit_play_xpath']
         self.logout_xpath = CONFIG['logout']['logout_xpath']
 
     def logout(self):
+        """
+        登出多屏控制端的具体方法
+
+        :return: 无返回值
+        """
         try:
             if element_exist(self.driver, self.exit_play_xpath):
                 click_element(self.driver, self.exit_play_xpath, 15)
@@ -134,7 +174,15 @@ class Logout(ScreenShot):
 
 
 class Controller(ScreenShot):
+    """
+    继承用于截图的公共类 ScreenShot，并封装了用于播放多屏操作的类，里面包含了各个操作多屏控制端的类方法
+    """
     def __init__(self, driver):
+        """
+       继承 ScreenShot 构造函数，并保存用于控制操作相关的数据
+
+       :param driver: webdriver 对象
+       """
         super(Controller, self).__init__(driver, 'screenshots\\control')
         self.page_xpath = CONFIG['homepage']['nav_content_xpath']
         self.start_xpath = CONFIG['homepage']['start_xpath']
@@ -150,11 +198,22 @@ class Controller(ScreenShot):
         self.select_screen_confirm_xpath = CONFIG['homepage']['select_screen_confirm_xpath']
 
     def select_screen(self):
+        """
+        用于切换显示屏，切换成宝安中控的大屏
+
+        :return: 无返回值
+        """
         click_element(self.driver, self.change_screen_xpath, 10)
         click_element(self.driver, self.select_screen_xpath)
         click_element(self.driver, self.select_screen_confirm_xpath)
 
     def choice_doc(self, doc_name):
+        """
+        用于选择要播放的文稿
+
+        :param doc_name: 要播放的文稿名称
+        :return: 选择成功就返回 True，否则 False
+        """
         for times in range(1, 4):
             try:
                 elements = wait_for_find_elements(self.driver, self.nav_list_ct_xpath, 15)
@@ -180,6 +239,11 @@ class Controller(ScreenShot):
             return False
 
     def start(self):
+        """
+        用于点击启动播放按钮
+
+        :return: 点击成功就返回 True，否则 False
+        """
         for times in range(1, 4):
             try:
                 click_element(self.driver, self.start_xpath)
@@ -205,6 +269,11 @@ class Controller(ScreenShot):
             return False
 
     def next(self):
+        """
+        进入播放文稿页面下，用于点击下一页按钮
+
+        :return: 操作成功返回预览图对象，失败返回 False
+        """
         time.sleep(random.choice(targets))
         for times in range(1, 4):
             try:
@@ -226,6 +295,11 @@ class Controller(ScreenShot):
             return False
 
     def pre(self):
+        """
+        进入播放文稿页面下，用于点击上一页按钮
+
+        :return: 操作成功返回预览图对象，失败返回 False
+        """
         time.sleep(random.choice(targets))
         for times in range(1, 4):
             try:
@@ -247,6 +321,11 @@ class Controller(ScreenShot):
             return False
 
     def loop_play(self):
+        """
+        循环去播放一个文稿（一直按下一页下一页，到底后再按上一页上一页，如此反复）
+
+        :return: 无返回值
+        """
         for times in range(1, 11):
             print('loop_times: {}'.format(times))
             try:
@@ -307,12 +386,27 @@ class Controller(ScreenShot):
                 self.screen_shot()
 
     def pre_exist(self):
+        """
+        判断播放状态下的上一页按钮是否存在
+
+        :return: 存在返回该元素，不存在返回 False
+        """
         return element_exist(self.driver, self.pre_xpath)
 
     def next_exist(self):
+        """
+        判断播放状态下的下一页按钮是否存在
+
+        :return: 存在返回该元素，不存在返回 False
+        """
         return element_exist(self.driver, self.next_xpath)
 
     def exit_play_exist(self):
+        """
+        判断退出播放的按钮是否存在
+
+        :return: 存在返回该元素，不存在返回 False
+        """
         return element_exist(self.driver, self.exit_play_xpath)
 
 

@@ -11,6 +11,9 @@ logger = Logger(__name__).get_logger()
 
 
 class Driver(object):
+    """
+    封装了获取 webdriver 的类，其中 self.driver 中的变量值就是 webdriver 实例
+    """
     def __init__(self):
         self.driver = self._init()
 
@@ -43,6 +46,7 @@ class Driver(object):
             self.driver.close()
 
 
+# 暂未用到
 def driver_func_decorator(func):
     @wraps(func)
     def inner_func(*args, **kwargs):
@@ -52,6 +56,7 @@ def driver_func_decorator(func):
     return inner_func
 
 
+# 暂未用到
 def driver_method_decorator(func):
     @wraps(func)
     def inner_func(self, *args, **kwargs):
